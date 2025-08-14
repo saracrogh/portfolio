@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portable Radiation Detector - Sara Crogh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet">
+  <style>
+/* ============== Design tokens ============== */
+:root{
+  --bg:#ffffff;
+  --ink:#111111;
+  --muted:#606060;
+  --accent:#111111;
+  --border: rgba(17,17,17,0.10);
+  --elev: rgba(17,17,17,0.04);
+  --radius: 10px;
+  --container:1120px;
+  --section-pad: 80px;
+  --space-md:16px;
+
+  --img-shadow: 0 10px 24px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --img-shadow-hover: 0 14px 30px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size:1rem; line-height:1.6; font-weight:200; letter-spacing:-0.005em;
+  padding-top:72px; -webkit-font-smoothing:antialiased;
+}
+
+/* ===== Typography ===== */
+h1,h2,h3{margin:0; font-weight:400; letter-spacing:-0.02em; color:var(--ink)}
+h1{font-size:clamp(2.25rem,6vw,3rem); line-height:1.1; margin-bottom:24px}
+h2{font-size:1.5rem; margin-bottom:40px}
+h3{font-size:1.125rem; margin-bottom:12px}
+p{margin:0 0 var(--space-md); color:var(--muted); font-size:1rem}
+strong, .logo, .btn{font-weight:400}
+
+.container{max-width:var(--container); margin:0 auto; padding:0 20px}
+
+/* ===== Header ===== */
+header{
+  position:fixed; inset:0 0 auto 0;
+  z-index:1000; display:flex; align-items:center; justify-content:space-between;
+  height:72px; padding:0 2.5%;
+  background:rgba(255,255,255,0.75);
+  backdrop-filter: blur(6px);
+  border-bottom:1px solid var(--border);
+}
+
+.logo{font-size:.95rem; font-weight:400}
+
+nav{display:flex; gap:28px}
+nav a{font-weight:200; text-decoration:none; color:var(--muted); position:relative}
+nav a:hover{color:var(--ink)}
+nav a::after{content:""; position:absolute; left:0; bottom:-4px; height:1px; width:0; background:var(--ink); transition:width .25s ease}
+nav a:hover::after{width:100%}
+
+/* ===== Hero ===== */
+.hero{padding:var(--section-pad) 0; text-align:center}
+.project-tag{
+  display:inline-block; margin-bottom:8px; font-size:0.85rem; color:var(--muted);
+  background:transparent; border:1px solid var(--border);
+  padding:6px 12px; border-radius:999px; font-weight:200
+}
+.hero-subtitle{
+  font-size:1rem; color:var(--muted); margin-top:20px; 
+  max-width:68ch; margin-left:auto; margin-right:auto;
+}
+
+/* ===== Sections ===== */
+.section{padding:var(--section-pad) 0}
+.section-title{text-align:center; margin-bottom:40px}
+
+/* ===== Two Column Layout ===== */
+.two-col{display:grid; grid-template-columns:2fr 1fr; gap:48px; align-items:start}
+
+/* ===== Simple Grid ===== */
+.grid{display:grid; gap:24px; margin-top:40px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:1fr 1fr 1fr}
+.grid-4{grid-template-columns:1fr 1fr 1fr 1fr}
+
+/* ===== Cards ===== */
+.card{
+  background:var(--bg); border:1px solid var(--border); 
+  padding:24px; border-radius:var(--radius);
+}
+.card h3{color:var(--ink); margin-bottom:8px}
+.card p{color:var(--muted); margin:0}
+
+/* ===== Stats ===== */
+.stat-card{
+  text-align:center; padding:24px; background:var(--bg); 
+  border:1px solid var(--border); border-radius:var(--radius);
+}
+.stat-number{font-size:2rem; font-weight:400; color:var(--ink); margin-bottom:8px}
+.stat-label{font-size:0.9rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em}
+
+/* ===== Square 3×2 gallery ===== */
+.gallery{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  margin-top:20px;
+}
+.gallery img{ width:100%; aspect-ratio: 1 / 1; object-fit: cover; display:block; }
+@media (max-width:900px){ .gallery{ grid-template-columns: repeat(2, 1fr);} }
+@media (max-width:600px){ .gallery{ grid-template-columns: 1fr;} }
+
+.full-width-image{margin:40px 0}
+.image{display:block}
+
+/* ===== Timeline ===== */
+.timeline{position:relative; margin-top:var(--space-md)}
+.timeline::before{content:""; position:absolute; left:24px; top:0; bottom:0; width:1px; background:var(--border)}
+.t-item{display:flex; align-items:flex-start; gap:16px; margin-bottom:24px}
+.t-num{
+  flex-shrink:0; width:46px; height:46px; border-radius:50%; background:var(--ink);
+  color:#fff; font-weight:400; font-size:1.125rem; display:flex; align-items:center; justify-content:center
+}
+.t-card{
+  flex:1; background:var(--bg); border:1px solid var(--border);
+  padding:20px; border-radius:var(--radius); font-size:1rem
+}
+.t-card h3{margin-bottom:8px; color:var(--ink)}
+.t-card p{margin:0; color:var(--muted)}
+
+/* ===== Dark Section ===== */
+.dark-section{background:var(--ink); color:#fff; padding:var(--section-pad) 0}
+.dark-section .section-title{color:#e8e8e8}
+.dark-section .card{
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14);
+}
+.dark-section .card h3{color:#ffffff}
+.dark-section .card p{color:#d8d8d8}
+
+/* ===== CTA ===== */
+.cta{text-align:center; padding:var(--section-pad) 0; border-top:1px solid var(--border)}
+.btn{
+  display:inline-block; background:var(--accent); color:#fff; 
+  padding:12px 22px; border-radius:999px; border:1px solid var(--accent); 
+  font-weight:400; text-decoration:none;
+}
+.btn:hover{opacity:.9}
+
+/* ===== Text Block ===== */
+.text-block{max-width:75ch; margin-left:auto; margin-right:auto}
+
+/* ===== Motion ===== */
+.fade-in{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.fade-in.visible{opacity:1; transform:translateY(0)}
+.slide-left{opacity:0; transform:translateX(-28px); transition:opacity .6s ease, transform .6s ease}
+.slide-left.visible{opacity:1; transform:translateX(0)}
+.slide-right{opacity:0; transform:translateX(28px); transition:opacity .6s ease, transform .6s ease}
+.slide-right.visible{opacity:1; transform:translateX(0)}
+
+@media (prefers-reduced-motion:reduce){
+  .fade-in,.slide-left,.slide-right{transition:none; transform:none; opacity:1}
+  html{scroll-behavior:auto}
+}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo"><a href="index2.html" style="text-decoration: none; color: inherit;">Sara Crogh</a></div>
+    <nav>
+      <a href="work.html">Work</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="project-tag">Product Strategy · Requirements · Execution</span>
+      <h1>Portable Radiation Detector</h1>
+      <p class="hero-subtitle">
+        A 4-month project scoped and delivered from concept to functional prototype: PM2.5, environmental sensing
+        (temperature, humidity, pressure), GPS, and a portable case—planned, prioritized, and iterated on a Raspberry Pi platform.
+      </p>
+    </div>
+  </section>
+
+  <!-- Product Vision & Strategy -->
+  <section class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="slide-left">
+          <h2>Product Vision & Execution Strategy</h2>
+          <p>
+            <strong>Goal:</strong> Define a compact, portable detector that combines radiation-adjacent learning with multi-sensor
+            environmental monitoring in a single build, using accessible components and clear success criteria.
+          </p>
+          <p>
+            <strong>Approach:</strong> Framed the work as two streams—software/data (programming, sensor interfaces, statistics)
+            and mechanical (case CAD and manufacturing). Sequenced the roadmap: research → modeling/validation →
+            hardware feasibility → software DAQ → case design & manufacturing.
+          </p>
+          <p>
+            <strong>Outcome:</strong> A working prototype integrating PM2.5, BME680 environmental sensing, GPS, and a 3D-printed case
+            with a laser-cut top. Decisions were documented, trade-offs were explicit, and each iteration tied back to requirements.
+          </p>
+        </div>
+        <div class="slide-right">
+          <img
+            src="images/radiation_detector/Adobe Express - file (4).png"
+            alt="Internal product architecture"
+            class="image"
+            loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Requirements & Features -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Requirements & Scoped Features</h2>
+      <div class="grid grid-2">
+        <div class="card fade-in">
+          <h3>Multi-Sensor Scope</h3>
+          <p>Prioritized PM2.5, BME680 (temperature, humidity, pressure, gas), and GPS to maximize learning value and coverage while keeping the build feasible on Raspberry Pi.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Validation via Statistics</h3>
+          <p>Planned a data-quality approach using counting statistics (Poisson) and comparison of datasets (e.g., indoor vs. outdoor) to benchmark signal reliability.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Electronics Feasibility</h3>
+          <p>Structured circuit exploration (RC, PIN diode, step-up, signal amplification) and analog/digital signal handling as milestones to de-risk integration.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Case Usability & Fit</h3>
+          <p>Defined constraints for screen, battery, and Raspberry Pi; used these as non-negotiables to guide CAD, layout, and future manufacturability decisions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Development Methodology -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Execution Plan & Milestones</h2>
+      <div class="timeline">
+        <div class="t-item fade-in">
+          <div class="t-num">1</div>
+          <div class="t-card">
+            <h3>Research & Requirement Setting</h3>
+            <p>Studied radiation concepts (activity, decay types/chains) and set initial scope. Selected Raspberry Pi and mapped target sensor interfaces.</p>
+          </div>
+        </div>
+        <div class="t-item fade-in">
+          <div class="t-num">2</div>
+          <div class="t-card">
+            <h3>Modeling & Data Benchmarks</h3>
+            <p>Defined a validation plan using stochastic processes and Poisson statistics; compared datasets (indoor vs. outdoor) to establish baselines.</p>
+          </div>
+        </div>
+        <div class="t-item fade-in">
+          <div class="t-num">3</div>
+          <div class="t-card">
+            <h3>Hardware Feasibility</h3>
+            <p>Sequenced component ordering and circuit exploration (RC, PIN diode, step-up, amplification) to reduce integration risk before full stack assembly.</p>
+          </div>
+        </div>
+        <div class="t-item fade-in">
+          <div class="t-num">4</div>
+          <div class="t-card">
+            <h3>Software & DAQ</h3>
+            <p>Planned and implemented a Python-based DAQ path on Raspberry Pi; organized code and version control to compare and converge on the final approach.</p>
+          </div>
+        </div>
+        <div class="t-item fade-in">
+          <div class="t-num">5</div>
+          <div class="t-card">
+            <h3>Case Design & Manufacturing</h3>
+            <p>Guided CAD around fixed dimensions and assembly flow; executed a 3D-printed body with a laser-cut plywood top, iterating for fit and accessibility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Architecture -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">System Components</h2>
+      <div class="grid grid-3">
+        <div class="card fade-in"><h3>Raspberry Pi 4</h3><p>Processing and data acquisition hub</p></div>
+        <div class="card fade-in"><h3>BME680 Sensor</h3><p>Temperature, humidity, pressure, gas</p></div>
+        <div class="card fade-in"><h3>PM2.5 Monitor</h3><p>Air-quality particulate readings</p></div>
+        <div class="card fade-in"><h3>GPS Module</h3><p>Location tagging for measurements</p></div>
+        <div class="card fade-in"><h3>Python DAQ</h3><p>Sensor interfacing and data handling</p></div>
+        <div class="card fade-in"><h3>3D-Printed Housing</h3><p>Custom enclosure with laser-cut top</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image Gallery -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Build Photos & Renders</h2>
+      <div class="gallery">
+        <img src="images/radiation_detector/radiation_case_assembled.avif" alt="Assembled radiation case" class="fade-in" loading="lazy" decoding="async">
+        <img src="images/radiation_detector/radiation_case_blueprint.avif" alt="Case blueprint" class="fade-in" loading="lazy" decoding="async">
+        <img src="images/radiation_detector/radiation_case_cad.avif" alt="CAD model" class="fade-in" loading="lazy" decoding="async">
+        <img src="images/radiation_detector/radiation_case_side.avif" alt="Case side view" class="fade-in" loading="lazy" decoding="async">
+        <img src="images/radiation_detector/Screenshot 2023-11-04 at 12_02_57.avif" alt="Hand wiring progress" class="fade-in" loading="lazy" decoding="async">
+        <img src="images/radiation_detector/Screenshot 2023-11-04 at 12_02_48.avif" alt="Board and sensor stack" class="fade-in" loading="lazy" decoding="async">
+      </div>      
+    </div>
+  </section>
+
+  <!-- Design Challenges & Problem Solving -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Risks, Constraints & Iterations</h2>
+      <div class="text-block fade-in">
+        <p><strong>Fit & Access Risks:</strong> The screen initially exceeded the case spec; PM2.5 placement blocked USB access; the magnetic lid misaligned. I captured these as high-impact issues and set dimensional constraints for the screen, battery, and Raspberry Pi to guide revisions.</p>
+        <p><strong>Trade-offs & Decisions:</strong> Explored hinge options and refined layout to protect the screen and improve access. Printer size limits required splitting the body for print—this informed the assembly plan and future manufacturing considerations.</p>
+        <p><strong>Thermals & Layout:</strong> Added ventilation/fan mounting holes and re-oriented the PM2.5 sensor vertically to avoid port conflicts while maintaining function.</p>
+        <p><strong>Looking Ahead:</strong> For scale, injection molding would remove the print split and enable thinner walls. Future compartments for electronics would further improve serviceability.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Management Learnings -->
+  <section class="dark-section">
+    <div class="container">
+      <h2 class="section-title fade-in">Product Management Takeaways</h2>
+      <div class="grid grid-2">
+        <div class="card slide-left">
+          <h3>Roadmap by Risk</h3>
+          <p>Sequencing research → modeling → feasibility → DAQ → case design reduced unknowns and made decisions traceable to requirements.</p>
+        </div>
+        <div class="card slide-right">
+          <h3>Data-Informed Decisions</h3>
+          <p>Poisson-based validation and dataset comparisons set practical accuracy expectations and guided iteration priorities.</p>
+        </div>
+        <div class="card slide-left">
+          <h3>Integration Planning</h3>
+          <p>Explicit constraints for screen, battery, and Pi kept CAD and assembly on track and prevented regressions in usability.</p>
+        </div>
+        <div class="card slide-right">
+          <h3>Manufacturing Awareness</h3>
+          <p>Printer limits and filament issues shaped the enclosure plan and pointed to injection molding as a future path.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <div class="container">
+      <a href="https://github.com/saracrogh/Radiation_detector_23/tree/main/Adafruit" class="btn" target="_blank" rel="noopener">View Technical Documentation</a>
+    </div>
+  </section>
+
+  <script>
+    // reveal on scroll
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    },{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
+    document.querySelectorAll('.fade-in,.slide-left,.slide-right').forEach(el=>observer.observe(el));
+
+    // header elevation
+    const header=document.querySelector('header');
+    addEventListener('scroll',()=>{
+      const y=window.pageYOffset||document.documentElement.scrollTop;
+      header.style.boxShadow = y>96?'0 2px 18px rgba(17,17,17,0.08)':'none';
+      hdr.style.background = y > 96? 'rgba(255,255,255,0.90)': 'rgba(255,255,255,0.75)'
+    });
+
+    // stagger timeline
+    const items=document.querySelectorAll('.t-item');
+    const tObs=new IntersectionObserver((ents)=>{
+      ents.forEach((entry,idx)=>{
+        if(entry.isIntersecting) setTimeout(()=>entry.target.classList.add('visible'), idx*120);
+      });
+    },{threshold:0.5});
+    items.forEach(i=>tObs.observe(i));
+  </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Sara Crogh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet">
+  <style>
+  /* ============== Design tokens (match site) ============== */
+  :root{
+    --bg:#ffffff; --ink:#111111; --muted:#606060; --accent:#111111;
+    --border: rgba(17,17,17,0.10); --elev: rgba(17,17,17,0.04);
+    --radius: 10px; --container:1120px; --section-pad: 80px; --space-md:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size:1rem; line-height:1.6; font-weight:200; letter-spacing:-0.005em;
+    padding-top:72px; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
+  h1,h2,h3{margin:0 0 var(--space-md); font-weight:400; letter-spacing:-0.02em; color:var(--ink)}
+  h1{font-size:clamp(2.25rem,6vw,3rem); line-height:1.1}
+  h2{font-size:0.95rem; text-transform:uppercase; letter-spacing:0.12em}
+  p{margin:0 0 var(--space-md); color:var(--muted)}
+  .container{max-width:var(--container); margin:0 auto; padding:0 20px}
+
+  /* ===== Header (same as your pages) ===== */
+  header{
+    position:fixed; inset:0 0 auto 0; z-index:1000;
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px; padding:0 2.5%;
+    background:rgba(255,255,255,0.75); backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--border); transition: box-shadow .2s ease, background .2s ease;
+  }
+  .logo{font-size:.95rem; font-weight:400}
+  nav{display:flex; gap:28px}
+  nav a{
+    font-weight:200; text-decoration:none; color:var(--muted);
+    position:relative; font-size:0.95rem;
+  }
+  nav a:hover{color:var(--ink)}
+  nav a::after{
+    content:""; position:absolute; left:0; bottom:-4px; height:1px; width:0; background:var(--ink);
+    transition:width .25s ease;
+  }
+  nav a:hover::after{width:100%}
+
+  /* ===== Hero ===== */
+  .hero{padding:var(--section-pad) 0; text-align:center}
+  .project-tag{
+    display:inline-block; margin-bottom:8px; font-size:0.85rem; color:var(--muted);
+    background:transparent; border:1px solid var(--border);
+    padding:6px 12px; border-radius:999px; font-weight:200;
+  }
+  .hero-subtitle{
+    font-size:1rem; color:var(--muted); margin-top:20px;
+    max-width:68ch; margin-inline:auto;
+  }
+
+  /* ===== Contact block ===== */
+  .section{padding:var(--section-pad) 0}
+  .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:start}
+  .card{
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
+    padding:24px;
+  }
+  .list{display:grid; gap:12px; margin-top:8px}
+  .row{display:flex; gap:10px; align-items:center}
+  .row strong{font-weight:400; color:var(--ink)}
+  .muted{color:var(--muted)}
+
+  /* ===== Buttons & inputs ===== */
+  .btn{
+    display:inline-block; background:var(--accent); color:#fff; text-decoration:none;
+    padding:12px 22px; border-radius:999px; border:1px solid var(--accent);
+    font-weight:400;
+  }
+  .btn:hover{opacity:.9}
+  .btn-row{display:flex; gap:12px; flex-wrap:wrap}
+  .btn.outline{
+    background:transparent; color:var(--ink); border-color:var(--border);
+  }
+  label{display:block; font-size:.9rem; color:var(--muted); margin-bottom:6px}
+  input, textarea{
+    width:100%; border:1px solid var(--border); background:#fff; color:var(--ink);
+    border-radius:10px; padding:12px 14px; font-family:inherit; font-size:1rem;
+  }
+  textarea{min-height:140px; resize:vertical}
+  .field{margin-bottom:14px}
+
+  /* ===== Footer CTA ===== */
+  .cta{text-align:center; padding:var(--section-pad) 0; border-top:1px solid var(--border)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+
+  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo"><a href="index2.html" style="text-decoration: none; color: inherit;">Sara Crogh</a></div>
+  <nav>
+    <a href="work.html">Work</a>
+    <a href="about.html">About Me</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <h1>Let’s work together</h1>
+    <p class="hero-subtitle">Reach out about product design, hardware, or collaborations.</p>
+    <div class="btn-row" style="justify-content:center; margin-top:12px">
+      <!-- Update the href to your actual resume path -->
+      <a class="btn" href="/resume_saracrogh.pdf" download>Download Résumé</a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact section -->
+<section class="section">
+  <div class="container grid">
+    <!-- Right: Form (mailto-based, no backend) -->
+    <form class="card" id="contact-form">
+      <h2>Contact Form</h2>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject" type="text" required>
+      </div>
+      <div class="field" style="display:none">
+        <!-- simple honeypot -->
+        <label for="company">Company</label>
+        <input id="company" name="company" type="text">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn" type="submit">Send</button>
+        <button class="btn outline" type="reset">Clear</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Light CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Available for collaboration</h2>
+    <p class="muted" style="margin-top:6px">Start a conversation—ideas welcome.</p>
+  </div>
+</section>
+
+<script>
+  // Header elevation on scroll
+  const hdr=document.querySelector('header');
+  addEventListener('scroll',()=>{
+    const y=window.pageYOffset||document.documentElement.scrollTop;
+    hdr.style.boxShadow = y>96?'0 2px 18px rgba(17,17,17,0.08)':'none';
+    hdr.style.background = y>96?'rgba(255,255,255,0.90)':'rgba(255,255,255,0.75)';
+  });
+
+  // Mailto submission (no backend)
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const hp = (form.company && form.company.value.trim());
+    if (hp) return; // honeypot trip, do nothing
+
+    const name = encodeURIComponent(form.name.value.trim());
+    const email = encodeURIComponent(form.email.value.trim());
+    const subj = encodeURIComponent(form.subject.value.trim() || 'Message from portfolio');
+    const msg  = encodeURIComponent(form.message.value.trim());
+
+    const body = `Name: ${name}\nEmail: ${email}\n\n${msg}`;
+    const mailto = `mailto:saraacrogh@gmail.com?subject=${subj}&body=${body}`;
+    window.location.href = mailto;
+  });
+</script>
+</body>
+</html>

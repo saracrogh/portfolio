@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara Crogh Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #ffffff;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    /* ===== Header ===== */
+    :root{
+      --ink:#111;
+      --muted:#666;
+      --border:rgba(17,17,17,0.10);
+      --section-pad:80px;
+      --grid-gap:32px;
+    }
+    /* ===== Header ===== */
+    header{
+      position:fixed; inset:0 0 auto 0;
+      z-index:1000; display:flex; align-items:center; justify-content:space-between;
+      height:72px; padding:0 2.5%;
+      background:rgba(255,255,255,0.75); /* more transparent than 0.90 */
+      backdrop-filter: blur(6px); /* smaller blur for lighter look */
+      border-bottom:1px solid var(--border);
+    }
+
+    .logo{font-size:.95rem; font-weight:400}
+
+    nav{display:flex; gap:28px}
+    nav a{font-weight:200; text-decoration:none; color:var(--muted); position:relative; font-size:0.95rem}
+    nav a:hover{color:var(--ink)}
+    nav a::after{content:""; position:absolute; left:0; bottom:-4px; height:1px; width:0; background:var(--ink); transition:width .25s ease}
+    nav a:hover::after{width:100%}
+    
+    nav a::after{
+      content:""; position:absolute; left:0; bottom:-4px;
+      height:1px; width:0; background:var(--ink);
+      transition:width .25s ease;
+    }
+    nav a:hover::after{ width:100%; }
+
+    /* ===== Hero ===== */
+    .hero{
+      padding:var(--section-pad) 0;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:var(--grid-gap);
+      align-items:center;
+    }
+    .hero-text{
+      padding-left:100px; /* pushes text right */
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size: clamp(2.75rem, 7vw, 5rem);
+      line-height: 1.05;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .hero-sub{
+      margin-top: 12px;
+      font-size: 1.1rem;
+      line-height: 1.55;
+      font-weight: 200;
+      color: var(--muted);
+      max-width: 68ch;
+    }
+    .gradient-highlight{
+      background-image: linear-gradient(60deg, #e52451, #f4d2ed);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; -webkit-text-fill-color: transparent;
+      font-weight: 400;
+    }
+    .hero img{
+      width: 100%; max-width: 400px; height: auto;
+      border: none !important; border-radius: 0 !important;
+      justify-self: end;
+      padding-right:100px; /* pushes text right */
+
+    }
+
+    /* ===== Gallery ===== */
+    .gallery-container {
+      max-width: 1300px; /* was 1200px */
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+    .section-header {
+      margin-bottom: 60px; text-align: center;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 200;
+      color: #111;
+      margin-bottom: 16px;
+      letter-spacing: -0.8px;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      height: 430px; /* taller cards */
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      transition: filter 0.5s ease;
+    }
+    .project-card:hover img {
+      filter: grayscale(100%) brightness(60%);
+    }
+    .project-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 30px;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .project-card:hover .project-info {
+      opacity: 1;
+    }
+    .project-title {
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .project-skill {
+      font-size: 1rem;
+      font-weight: 200;
+      margin-bottom: 12px;
+    }
+    .project-readmore {
+      display: inline-block;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: white;
+      border: 1px solid white;
+      border-radius: 20px;
+      padding: 8px 16px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .project-readmore:hover {
+      background: white;
+      color: black;
+    }
+
+    /* ===== Typography ===== */
+    h1,h2,h3{margin:0; font-weight:400; letter-spacing:-0.02em; color:var(--ink)}
+    h1{font-size:clamp(2.75rem,7vw,4rem); line-height:1.1; margin-bottom:24px}
+    h2{font-size:1.5rem; margin-bottom:24px}
+    h3{font-size:1.125rem; margin-bottom:12px}
+    p{margin:0 0 16px; color:var(--muted); font-size:1rem; font-weight:200; line-height:1.6}
+    strong, .logo, .btn{font-weight:400}
+
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; gap: 30px; }
+      nav { gap: 20px; }
+      nav a { font-size: 0.9rem; }
+      .hero-text{ padding-left:20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><a href="index2.html" style="text-decoration: none; color: inherit;">Sara Crogh</a></div>
+    <nav>
+      <a href="work.html">Work</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="section hero container">
+    <div class="hero-text">
+      <h1>Product<br><span class="gradient-highlight">Innovator</span></h1>
+      <p class="hero-sub measure">Hi! I'm Sara. I build products—grounded in engineering, elevated by design.</p>
+    </div>
+    <img src="images/profilepic.jpeg" alt="Sara Crogh headshot">
+  </section>
+
+  <!-- Gallery -->
+  <div class="gallery-container">
+    <div class="section-header">
+      <h2 class="section-title">Selected Work</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="images/esp32_noise_guard/pic1.webp" alt="Project 1">
+        <div class="project-info">
+          <h3 class="project-title">Roomate Noise Guard</h3>
+          <p class="project-skill">Product Design</p>
+          <a href="roomate2.html" class="project-readmore">Learn More</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/radiation_detector/Remove background project (4).png" alt="Project 2">
+        <div class="project-info">
+          <h3 class="project-title">Radiation Detector</h3>
+          <p class="project-skill">Engineer</p>
+          <a href="#" class="project-readmore">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
