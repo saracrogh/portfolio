@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara Crogh Portfolio</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#111;
+      --muted:#666;
+      --bg:#fff;
+      --border:rgba(17,17,17,0.08);
+      --section-pad:80px;
+      --container:1200px;
+      --radius:16px;}
+body{background:var(--bg); color:var(--ink);
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.6; font-weight:200;
+      padding-top:72px;}
+.hero{display:grid; grid-template-columns:1.15fr 1fr; gap:clamp(16px,3vw,40px);
+      align-items:center; max-width:var(--container); margin:0 auto; padding:120px 20px 100px;}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem); line-height:1.06; font-weight:200; letter-spacing:-.02em; margin-bottom:16px; max-width:800px;}
+.highlight{box-shadow:inset 0 -0.5ch 0 rgba(17,17,17,.08)}
+.hero-subtitle{font-size:1.1rem; color:var(--muted); font-weight:200; max-width:600px}
+.hero-media{position:relative; width:min(380px,42vw); margin-inline:auto; border-radius:var(--radius); overflow:hidden}
+.hero-media img{width:100%; height:100%; object-fit:cover; display:block}
+.work{max-width:1400px; margin:0 auto; padding:0 20px var(--section-pad)}
+.work-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:40px; margin-bottom:20px}
+.work-item{position:relative; aspect-ratio:4/3; background:#fafafa; overflow:hidden; cursor:pointer; transition:transform .4s ease, box-shadow .4s ease; border-radius:12px}
+.work-item:hover{transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,.15)}
+.work-item img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease, filter .6s ease; filter:grayscale(20%)}
+.work-item:hover img{filter:grayscale(100%) brightness(75%); transform:scale(1.05)}
+.work-overlay{position:absolute; inset:0; background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.6) 100%); opacity:0; transition:opacity .4s ease}
+.work-item:hover .work-overlay{opacity:1}
+.work-info{position:absolute; inset:auto 0 0 0; padding:24px; color:#fff; transform:translateY(16px); opacity:0; transition:all .4s ease}
+.work-item:hover .work-info{transform:translateY(0); opacity:1}
+.work-category{font-size:.8rem; font-weight:400; opacity:.9; margin-bottom:4px; text-transform:uppercase; letter-spacing:.1em}
+.work-title{font-size:1.2rem; font-weight:400; margin:0}
+.work-grid{display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 40px;
+  margin-bottom: 20px;}
+.section-container{max-width: 1200px; 
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 200px;
+  justify-content: space-between;}
+.section-media{flex:1.05; border-radius:12px; overflow:hidden}
+.section-media img{width:100%; height:100%; object-fit:cover; display:block}
+.section-text{flex: 1;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  max-width: 600px;}
+.section-text h2{font-size:1.8rem; font-weight:300; margin-bottom:12px; letter-spacing:-.01em}
+.section-text p{font-size:1rem; color:var(--muted); text-align: justify}
+.left-bias{padding-left:clamp(20px,8vw,120px); padding-right:10px}
+.right-bias{padding-right:clamp(20px,8vw,120px); padding-left:10px}
+.alt{flex-direction:row-reverse}
+.about-content h2{font-size:1.8rem; font-weight:300; margin-bottom:24px; letter-spacing:-.01em}
+.about-content p{font-size:1rem; color:var(--muted); margin-bottom:20px; font-weight:200; line-height:1.7}
+.approach{margin-top:40px; padding-top:40px; border-top:1px solid var(--border)}
+.approach h3{font-size:1rem; font-weight:400; margin-bottom:16px; color:var(--ink)}
+.approach-list{list-style:none; padding:0}
+.approach-list li{padding:8px 0; font-size:.95rem; color:var(--muted); border-bottom:1px solid rgba(17,17,17,.05)}
+.approach-list li:last-child{border-bottom:none}
+.contact{max-width:var(--container); margin:0 auto; padding:60px 20px 80px; text-align:center;}
+.contact h2{font-size:1.6rem; font-weight:300; margin-bottom:16px; letter-spacing:-.01em}
+.contact p{font-size:1rem; color:var(--muted); margin-bottom:32px; font-weight:200}
+.contact-link{display:inline-block; color:var(--ink); text-decoration:none; font-weight:300; padding:12px 0; position:relative; font-size:1rem}
+.contact-link::after{content:''; position:absolute; bottom:8px; left:0; right:0; height:1px; background:var(--ink); transform:scaleX(.3); transition:transform .3s ease}
+.contact-link:hover::after{transform:scaleX(1)}
+.see-more-container{text-align:center; margin-top:40px}
+.see-more-btn{display:inline-block; padding:12px 28px; background:var(--ink); color:#fff; border-radius:999px; font-size:1rem; font-weight:400; text-decoration:none; transition:background .3s ease}
+.see-more-btn:hover{background:#333}
+@media (max-width:900px){.work-grid{grid-template-columns:1fr; gap:20px}
+.hero{grid-template-columns:1fr; padding:100px 20px 80px}
+.hero-media{order:-1; width:100%; max-width:520px}
+.section-container{flex-direction:column; padding:48px 20px}
+.alt{flex-direction:column}
+.left-bias,.right-bias{padding-left:20px; padding-right:20px}
+}
+    @media (max-width:600px){.work-item{aspect-ratio:3/2}
+</style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo"><a href="index.html">Sara Crogh</a></div>
+    <nav>
+      <a href="work.html">Work</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>
+        Product Developer at the intersection of
+        <span class="highlight">engineering</span>
+        and
+        <span class="highlight">design</span>.
+      </h1>
+      <p class="hero-subtitle">
+        Hi, I’m Sara — a UC Berkeley Mechanical Engineer. I create products that solve meaningful problems,
+        translating technical capabilities into seamless user experiences across devicess.
+      </p>
+    </div>
+    <div class="hero-media">
+      <img src="images/profilepic.jpeg" alt="Sara Crogh headshot">
+    </div>
+  </section>
+
+  <section class="work">
+    <div class="work-grid">
+  
+      <!-- Roommate Noise Guard -->
+      <a class="work-item" href="roomate.html">
+        <div class="work-overlay"></div>
+        <img src="images/esp32_noise_guard/pic1.webp" alt="Noise Guard">
+        <div class="work-info">
+          <div class="work-category">IoT Product Development</div>
+          <h3 class="work-title">Roommate Noise Guard</h3>
+        </div>
+      </a>
+  
+      <!-- Radiation Detector -->
+      <a class="work-item" href="radiation.html">
+        <div class="work-overlay"></div>
+        <img src="images/radiation_detector/Remove background project (4).png" alt="Radiation Detector">
+        <div class="work-info">
+          <div class="work-category">Hardware Engineering</div>
+          <h3 class="work-title">Radiation Detection System</h3>
+        </div>
+      </a>
+  
+      <!-- Automated Powder Dispenser -->
+      <a class="work-item" href="powder_dispenser.html">
+        <div class="work-overlay"></div>
+        <img src="images/powder/Remove background project (7).png" alt="Automated Powder Dispenser">
+        <div class="work-info">
+          <div class="work-category">Mechatronics • Systems</div>
+          <h3 class="work-title">Automated Powder Dispenser</h3>
+        </div>
+      </a>
+  
+      <!-- Apple — Input Devices -->
+      <a class="work-item" href="apple.html">
+        <div class="work-overlay"></div>
+        <!-- replace src with your actual Apple thumbnail if you have one -->
+        <img src="images/apple/Screenshot 2025-08-16 at 19.07.34.png" alt="Apple Input Devices">
+        <div class="work-info">
+          <div class="work-category">Hardware • Validation</div>
+          <h3 class="work-title">Apple — Input Devices</h3>
+        </div>
+      </a>
+  
+    </div>
+  </section>
+  
+  <!-- See More -->
+  <div class="see-more-container">
+    <a href="work.html" class="see-more-btn">See More</a>
+  </div>
+  <section class="section-container">
+    <!-- Left column -->
+    <div class="section-text">
+      <h2>Tech products need deep user insight</h2>
+      <p>I combine an engineering background with product thinking to build solutions that users actually want. My approach starts with understanding the problem space, then working backwards from user needs to technical implementation. I focus on the intersection of what’s technically possible and what users find valuable.</p> </div>
+  
+    <!-- Right column -->
+    <div class="section-text">
+      <h2>My approach to product management</h2>
+      <p>My approach focuses on understanding users and validating problems before building, assessing technical feasibility and creating clear roadmaps, fostering cross-functional collaboration between engineering and design, iterating based on user feedback, and making data-driven decisions with success metrics.</p>
+    </div>
+  </section>
+
+
+
+  <!-- Contact -->
+  <section class="contact">
+    <a href="contact.html" class="contact-link">Get in touch</a>
+  </section>
+
+  <script>
+    // Fade-ups (kept if you later add .fade-up)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Header elevation
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      const y = window.pageYOffset || document.documentElement.scrollTop;
+      header.style.boxShadow = y > 96 ? '0 2px 18px rgba(17,17,17,0.08)' : 'none';
+      header.style.background = y > 96 ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.75)';
+    });
+  </script>
+</body>
+</html>

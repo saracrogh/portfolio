@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bondura - AI Care for Seniors | Sara Crogh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet">
+  <style>
+:root{--bg:#ffffff;           
+  --ink:#111111;          
+  --muted:#606060;        
+  --accent:#111111;       
+
+  --border: rgba(17,17,17,0.10);   
+  --elev: rgba(17,17,17,0.04);     
+
+  --radius: 10px;         
+  --container:1120px;
+
+  --section-pad: 80px;    
+  --space-md:16px;}
+*{box-sizing:border-box; box-shadow:none !important}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size:1rem; line-height:1.6; font-weight:200; letter-spacing:-0.005em;
+  padding-top:72px; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+h1,h2,h3{margin:0 0 var(--space-md); font-weight:400; letter-spacing:-0.02em; color:var(--ink)}
+h1{font-size:clamp(2.25rem,6vw,3rem); line-height:1.1}
+h2{font-size:0.95rem; text-transform:uppercase; letter-spacing:0.12em}
+h3{font-size:1.125rem}
+p{margin:0 0 var(--space-md); color:var(--muted); font-size:1rem}
+.measure{max-width:68ch; margin-left:auto; margin-right:auto}
+.container{max-width:var(--container); margin:0 auto; padding:0 20px}
+.hero{padding:var(--section-pad) 0; border-bottom:none; text-align:center}
+.project-tag{display:inline-block; margin-bottom:8px; font-size:0.85rem; color:var(--muted);
+  background:transparent; border:1px solid var(--border);
+  padding:6px 12px; border-radius:999px; font-weight:200}
+.hero-subtitle{font-size:1rem; color:var(--muted);
+  margin-top:20px; max-width:68ch; text-align:center; margin-left:auto; margin-right:auto;}
+.section{padding:var(--section-pad) 0}
+.section-title{text-align:center; margin-bottom:var(--space-md)}
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start}
+.problem .highlight, .solution .highlight{background:transparent; border:1px solid var(--border);
+  padding:16px; border-radius:var(--radius); margin:var(--space-md) 0; color:var(--muted)}
+.market-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); 
+  gap:16px; margin-top:var(--space-md);}
+.market-card{margin:0; background:var(--bg); border:1px solid var(--border);
+  border-radius:var(--radius); overflow:hidden; text-align:center;
+  padding:20px;}
+.market-value{font-size:1.5rem; font-weight:400; color:var(--ink); 
+  margin-bottom:8px;}
+.market-label{font-size:0.95rem; font-weight:400; margin-bottom:12px; color:var(--ink)}
+.market-desc{font-size:0.9rem; color:var(--muted)}
+.timeline{position:relative; margin-top:var(--space-md)}
+.timeline::before{content:""; position:absolute; left:24px; top:0; bottom:0; width:1px; background:var(--border)}
+.t-item{display:flex; align-items:center; gap:16px; margin-bottom:24px}
+.t-num{flex-shrink:0; width:46px; height:46px; border-radius:999px; background:var(--ink);
+  color:#fff; font-weight:400; font-size:1.125rem; display:flex; align-items:center; justify-content:center}
+.t-card{flex:1; background:var(--bg); border:1px solid var(--border);
+  padding:20px; border-radius:var(--radius); font-size:1rem}
+.timeline-week{font-size:0.8rem; color:var(--muted); font-weight:400; 
+  text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;}
+.team-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(100px, 1fr));
+  gap:16px; margin-top:var(--space-md);}
+.team-member{background:var(--bg); border:1px solid var(--border);
+  padding:24px 20px; border-radius:var(--radius); text-align:center;}
+.member-avatar{width:56px; height:56px; border-radius:999px; 
+  background:var(--accent); color:#fff;
+  display:grid; place-items:center; margin:0 auto 12px; font-weight:400; font-size:1.125rem}
+.member-name{font-size:0.95rem; font-weight:400; color:var(--ink); margin-bottom:4px}
+.member-role{color:var(--muted); font-size:0.85rem; font-weight:200; margin-bottom:8px}
+.member-background{font-size:0.85rem; color:var(--muted)}
+.features-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:16px; margin-top:var(--space-md);}
+.feature-card{background:var(--bg); border:1px solid var(--border);
+  padding:24px 20px; border-radius:var(--radius); text-align:center;}
+.feature-icon{width:56px; height:56px; border-radius:999px; background:var(--accent); color:#fff;
+  display:grid; place-items:center; margin:0 auto 12px; font-weight:400; font-size:1.125rem}
+.feature-title{font-size:0.95rem; font-weight:400; color:var(--ink); margin-bottom:4px}
+.pricing-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px; 
+  margin-top:var(--space-md); max-width:600px; margin-left:auto; margin-right:auto;}
+.pricing-card{background:var(--bg); border:1px solid var(--border);
+  padding:28px 20px; border-radius:var(--radius); text-align:center;}
+.price{font-size:2rem; font-weight:400; color:var(--ink); margin-bottom:8px}
+.price-label{font-size:0.95rem; font-weight:400; margin-bottom:12px; color:var(--ink)}
+.price-desc{font-size:0.9rem; color:var(--muted)}
+.learnings{background:var(--ink); color:#fff; padding:var(--section-pad) 0}
+.learnings .section-title{color:#e8e8e8}
+.l-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:var(--space-md)}
+.l-card{background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14);
+  padding:18px; border-radius:var(--radius)}
+.l-card h3{color:#ffffff; font-weight:400; margin-bottom:8px}
+.l-card p{color:#d8d8d8}
+.cta{text-align:center; padding:var(--section-pad) 0; border-top:1px solid var(--border)}
+.btn{display:inline-block; background:var(--accent); color:#fff; padding:12px 22px; border-radius:999px; border:1px solid var(--accent); font-weight:400; text-decoration:none}
+.btn:hover{opacity:.9}
+.fade-in{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.fade-in.visible{opacity:1; transform:translateY(0)}
+.slide-left{opacity:0; transform:translateX(-28px); transition:opacity .6s ease, transform .6s ease}
+.slide-left.visible{opacity:1; transform:translateX(0)}
+.slide-right{opacity:0; transform:translateX(28px); transition:opacity .6s ease, transform .6s ease}
+.slide-right.visible{opacity:1; transform:translateX(0)}
+@media (max-width:900px){.two-col{grid-template-columns:1fr; gap:20px}
+.pricing-grid{grid-template-columns:1fr}
+.l-grid{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){.fade-in,.slide-left,.slide-right{transition:none; transform:none; opacity:1}
+html{scroll-behavior:auto}
+}
+
+
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+h1, h2, h3{margin-bottom: 12px;}
+p{margin-bottom: 12px;}
+.section-title{margin-bottom: 16px;}
+.problem .highlight,
+.solution .highlight,
+.market-grid,
+.results-grid,
+.timeline,
+.l-grid{margin-top: 16px;}
+.t-card h3,
+.result-title,
+.l-card h3,
+.feature-title,
+.member-name{margin-bottom: 6px;}
+.t-item{margin-bottom: 20px;}
+.section,
+.learnings,
+.cta{padding: var(--section-pad) 0;}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><a href="index.html">Sara Crogh</a></div>
+    <nav>
+      <a href="work.html">Work</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <span class="project-tag">Strategy • Startup Project</span>
+    <h1>Bondura</h1>
+    <p class="hero-subtitle measure">
+      An AI-powered wearable that connects seniors through voice-activated communication, 
+      health monitoring, and social networking—bridging technology gaps to combat loneliness 
+      and support aging in place.
+    </p>
+  </div>
+</section>
+
+  <!-- Problem -->
+  <section class="section problem">
+    <div class="container">
+      <h2 class="section-title fade-in">Project Overview</h2>
+      <div class="two-col">
+        <div class="slide-left">
+          <div class="measure">
+            <p>
+                Bondura began as a 16-week entrepreneurship project at UC Berkeley, where our team of four identified a critical gap in senior care technology. Through extensive market research and user interviews, we discovered that 43% of seniors face isolation, yet existing solutions like smart speakers and complex apps fail to address their needs. Our approach was fundamentally different: create technology that feels invisible to the user while providing powerful capabilities underneath.
+            </p>
+            <p>
+                The project showcased my ability to lead product strategy, conduct market analysis, and coordinate cross-functional teams under tight deadlines. We validated our assumptions through partnerships with real retirement homes, developed comprehensive financial projections, and created a scalable business model that attracted genuine investor interest. By the semester's end, we had transformed an academic exercise into a viable startup concept with clear paths to market and measurable social impact.
+            </p>
+          </div>
+        </div>
+        <div class="slide-right">
+            <img
+            src="/images/bondura/Screenshot 2025-08-14 at 22.13.12.png"
+            alt="Prototype"
+            style="width:100%; max-width:420px; border-radius:12px; object-fit:cover; max-height:420px;"
+            />
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Problem & Solution -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">The Challenge & Our Approach</h2>
+    <div class="two-col">
+      <div class="slide-left">
+        <div class="measure">
+          <h3>The Loneliness Crisis</h3>
+          <p>43% of seniors experience isolation, increasing premature death risk by 29%. Current tech solutions are too complex, with 64% of adults 50+ feeling technology isn't designed for them.</p>
+          <div class="highlight">
+            <strong>Key insight:</strong> Retirement homes cost $5,000/month, yet families still struggle to maintain connection and monitor health effectively. Existing solutions like ElliQ ($249/month) and Apple Watch are either too expensive or too complex for widespread senior adoption.
+          </div>
+        </div>
+      </div>
+      
+      <div class="slide-right">
+        <div class="measure">
+          <h3>Screen-Free Innovation</h3>
+          <p>A voice-activated wearable that requires no tech literacy. Simple as talking to a friend, yet sophisticated enough to provide AI companionship, family communication, and health monitoring.</p>
+          <div class="highlight">
+            <strong>Strategy:</strong> Start with retirement homes for validation and easier adoption, then expand to individual consumers as the 85+ population doubles by 2040. This B2B2C approach reduces customer acquisition costs and provides valuable usage data.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Market Analysis -->
+<section class="section" style="background:#f8f8f8">
+  <div class="container">
+    <h2 class="section-title fade-in">Market Opportunity</h2>
+    <div class="market-grid">
+      <div class="market-card fade-in">
+        <div class="market-value">$2.3B</div>
+        <div class="market-label">Families with Elderly</div>
+        <p class="market-desc">80M projected elderly by 2040, 28.5% experience loneliness, 13% clinically depressed</p>
+      </div>
+      <div class="market-card fade-in">
+        <div class="market-value">$119M</div>
+        <div class="market-label">Retirement Homes</div>
+        <p class="market-desc">30,600 assisted living facilities, $94.2B industry value as of 2023</p>
+      </div>
+      <div class="market-card fade-in">
+        <div class="market-value">$17M</div>
+        <div class="market-label">Healthcare Facilities</div>
+        <p class="market-desc">37% of inpatients report loneliness, driving up healthcare costs</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Entrepreneurship Journey -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Our Startup Journey</h2>
+    
+    <div class="timeline">
+      <div class="t-item fade-in">
+        <div class="t-num">1</div>
+        <div class="t-card">
+          <div class="timeline-week">Weeks 1-3</div>
+          <h3>Problem Discovery & Validation</h3>
+          <p>Conducted market research revealing that 13% of US seniors experience depression (7M people). Interviewed retirement home staff and families to understand pain points. Identified that existing solutions like ElliQ ($249/month) and Apple Watch are too complex or expensive for mass adoption.</p>
+        </div>
+      </div>
+      
+      <div class="t-item fade-in">
+        <div class="t-num">2</div>
+        <div class="t-card">
+          <div class="timeline-week">Weeks 4-6</div>
+          <h3>Solution Design & Differentiation</h3>
+          <p>Designed screen-free, voice-activated approach after learning seniors find modern tech intimidating. Created three core value props: AI companion for guided reflection (gratitude is #1 non-medication depression treatment), effortless family communication, and invisible social networking based on shared experiences.</p>
+        </div>
+      </div>
+      
+      <div class="t-item fade-in">
+        <div class="t-num">3</div>
+        <div class="t-card">
+          <div class="timeline-week">Weeks 7-10</div>
+          <h3>Business Model Development</h3>
+          <p>Developed dual revenue streams: $250 device + $20/month subscription (vs ElliQ's $249/month). Calculated detailed unit economics: $10.50 software cost/month at scale, with gross margins of 47%. Created go-to-market strategy starting with retirement homes for validation.</p>
+        </div>
+      </div>
+      
+      <div class="t-item fade-in">
+        <div class="t-num">4</div>
+        <div class="t-card">
+          <div class="timeline-week">Weeks 11-14</div>
+          <h3>Partnership Strategy & Validation</h3>
+          <p>Established partnerships with Ashby Village and Sequoia Living retirement homes. Connected with insurance companies Carelon Health and NeueHealth for clinical trials. Validated through user interviews that residents find current tech too complex and families want real-time health updates.</p>
+        </div>
+      </div>
+      
+      <div class="t-item fade-in">
+        <div class="t-num">5</div>
+        <div class="t-card">
+          <div class="timeline-week">Weeks 15-16</div>
+          <h3>Investment Pitch & Scaling Plan</h3>
+          <p>Created comprehensive 2-year hiring plan ($1.68M total costs), developed clinical trial strategy to prove efficacy, and prepared Series A pitch for $2.2M. Financial projections show $56M annual revenue by year 6 with break-even in year 3. Presented to actual investors and startup accelerators.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solution Features -->
+<section class="section" style="background:#f8f8f8">
+  <div class="container">
+    <h2 class="section-title fade-in">Product Innovation</h2>
+    
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon">AI</div>
+        <h3 class="feature-title">AI Companion</h3>
+        <p>Voice-activated friend that guides seniors through positive life reflections, helping combat depression through gratitude—the #1 non-medication treatment backed by clinical research.</p>
+      </div>
+      
+      <div class="feature-card fade-in">
+        <div class="feature-icon">📞</div>
+        <h3 class="feature-title">Effortless Communication</h3>
+        <p>Stay connected with family using simple voice commands. No complex interfaces or small screens—just natural conversation that seniors can use immediately.</p>
+      </div>
+      
+      
+      <div class="feature-card fade-in">
+        <div class="feature-icon">💚</div>
+        <h3 class="feature-title">Health Monitoring</h3>
+        <p>Tracks Alzheimer's progression through conversation patterns and integrates biosensor data, providing real-time alerts to family and caregivers for proactive intervention.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Business Model -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Revenue Strategy</h2>
+    
+    <div class="pricing-grid">
+      <div class="pricing-card slide-left">
+        <div class="price">$250</div>
+        <div class="price-label">Device</div>
+        <p class="price-desc">One-time hardware cost for the AI-powered wearable pin or necklace with 2+ year battery life</p>
+      </div>
+      
+      <div class="pricing-card slide-right">
+        <div class="price">$20</div>
+        <div class="price-label">Per Month</div>
+        <p class="price-desc">Subscription for AI features, health monitoring, family communications, and cloud storage</p>
+      </div>
+    </div>
+    
+    <div style="
+    text-align:center; width: 600px; /* Fixed width */ padding:20px;
+    margin: 36px auto 0; /* auto centers it horizontally */
+    background:var(--bg);
+    border-radius:var(--radius);
+    border:1px solid var(--border);">
+    <p style="margin-bottom:8px;">
+      <strong>TAM:</strong> $2.3B targeting 7M clinically depressed seniors
+    </p>
+  </div>
+  
+  </div>
+</section>
+
+<!-- Team -->
+<section class="section" style="background:#f8f8f8">
+  <div class="container">
+    <h2 class="section-title fade-in">The Founding Team</h2>
+    
+    <div class="team-grid">
+      <div class="team-member fade-in">
+        <div class="member-avatar">RR</div>
+        <div class="member-name">Raiyan Rizwan</div>
+        <div class="member-role">CEO • EECS</div>
+        <p class="member-background">SpaceX experience in product development and technical strategy. Led overall vision and investor relations.</p>
+      </div>
+      
+      <div class="team-member fade-in">
+        <div class="member-avatar">KJ</div>
+        <div class="member-name">Kaif Jeelani</div>
+        <div class="member-role">CPO • EECS</div>
+        <p class="member-background">Typeface AI/ML expertise. Designed user experience and AI conversation systems for seniors.</p>
+      </div>
+      
+      <div class="team-member fade-in">
+        <div class="member-avatar">SC</div>
+        <div class="member-name">Sara Crogh</div>
+        <div class="member-role">COO • MechE</div>
+        <p class="member-background">Apple hardware engineering. Led operations strategy, partnership development, and manufacturing planning.</p>
+      </div>
+      
+      <div class="team-member fade-in">
+        <div class="member-avatar">RA</div>
+        <div class="member-name">Rehaan Arya</div>
+        <div class="member-role">CTO • Data Science</div>
+        <p class="member-background">Big Data at Berkeley. Built technical architecture and health monitoring algorithms for early detection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Key Learnings -->
+<section class="learnings">
+  <div class="container">
+    <h2 class="section-title fade-in">Entrepreneurship Learnings</h2>
+    
+    <div class="l-grid">
+      <div class="l-card fade-in">
+        <h3>Market-First Approach</h3>
+        <p>Starting with retirement homes provided controlled validation environment and faster feedback loops than direct consumer approach. B2B2C model reduced acquisition costs significantly.</p>
+      </div>
+      
+      <div class="l-card fade-in">
+        <h3>Unit Economics Validation</h3>
+        <p>Calculating exact COGS ($10.50 monthly software cost) and scaling projections early proved business viability. Detailed financial modeling was crucial for investor credibility.</p>
+      </div>
+      
+      <div class="l-card fade-in">
+        <h3>Partnership Strategy</h3>
+        <p>Early partnerships with retirement homes and insurers provided credibility and distribution before product completion. Relationships matter more than perfect prototypes in early stages.</p>
+      </div>
+      
+      <div class="l-card fade-in">
+        <h3>User-Centric Design</h3>
+        <p>Research revealed 80% preferred anonymous health interventions over direct confrontation. Deep user understanding shaped our entire product strategy and differentiation.</p>
+      </div>
+      
+      <div class="l-card fade-in">
+        <h3>MVP Thinking</h3>
+        <p>Focused on core problems (loneliness, communication barriers) rather than building comprehensive feature sets. Constraint-driven innovation led to clearer value propositions.</p>
+      </div>
+      
+      <div class="l-card fade-in">
+        <h3>Academic to Reality</h3>
+        <p>Transitioning from theoretical models to real partnership discussions required different skills. Learned to balance academic rigor with practical business execution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Scroll animations (matching roommate.html)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.fade-in, .slide-left, .slide-right').forEach(el => {
+  observer.observe(el);
+});
+
+// Header elevation on scroll (matching roommate.html)
+const header = document.querySelector('header');
+window.addEventListener('scroll', () => {
+  const y = window.pageYOffset || document.documentElement.scrollTop;
+  header.style.boxShadow = y > 96 ? '0 2px 18px rgba(17,17,17,0.08)' : 'none';
+  header.style.background = y > 96 ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.75)';
+});
+
+// Stagger timeline animations (matching roommate.html)
+const timelineItems = document.querySelectorAll('.t-item');
+const timelineObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, index * 120);
+    }
+  });
+}, { threshold: 0.5 });
+
+timelineItems.forEach(item => timelineObserver.observe(item));
+</script>
+</body>
+</html>

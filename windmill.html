@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3D Printed Wind Mill - Sara Crogh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet">
+  <style>
+/* ============== Design tokens ============== */
+:root{--bg:#ffffff;
+  --ink:#111111;
+  --muted:#606060;
+  --accent:#111111;
+  --border: rgba(17,17,17,0.10);
+  --elev: rgba(17,17,17,0.04);
+  --radius: 10px;
+  --container:1120px;
+  --section-pad: 80px;
+  --space-md:16px;}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size:1rem; line-height:1.6; font-weight:200; letter-spacing:-0.005em;
+  padding-top:72px; -webkit-font-smoothing:antialiased;}
+/* ===== Typography ===== */
+h1,h2,h3{margin:0; font-weight:400; letter-spacing:-0.02em; color:var(--ink)}
+h1{font-size:clamp(2.25rem,6vw,3rem); line-height:1.1; margin-bottom:24px}
+h2{font-size:1.5rem; margin-bottom:40px}
+h3{font-size:1.125rem; margin-bottom:12px}
+p{margin:0 0 var(--space-md); color:var(--muted); font-size:1rem}
+.container{max-width:var(--container); margin:0 auto; padding:0 20px}
+/* ===== Hero ===== */
+.hero{padding:var(--section-pad) 0; text-align:center}
+.project-tag{display:inline-block; margin-bottom:8px; font-size:0.85rem; color:var(--muted);
+  background:transparent; border:1px solid var(--border);
+  padding:6px 12px; border-radius:999px; font-weight:200}
+.hero-subtitle{font-size:1rem; color:var(--muted); margin-top:20px; 
+  max-width:68ch; margin-left:auto; margin-right:auto;}
+/* ===== Sections ===== */
+.section{padding:var(--section-pad) 0}
+.section-title{text-align:center; margin-bottom:40px}
+/* ===== Two Column Layout ===== */
+.two-col{text-align: center;display:grid; grid-template-columns:2fr 1fr; gap:48px; align-items:start}
+/* ===== Simple Grid ===== */
+.grid{display:grid; gap:24px; margin-top:40px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:1fr 1fr 1fr}
+.grid-4{grid-template-columns:1fr 1fr 1fr 1fr}
+/* ===== Cards ===== */
+.card{background:var(--bg); border:1px solid var(--border); 
+  padding:24px; border-radius:var(--radius);}
+.card h3{color:var(--ink); margin-bottom:8px}
+.card p{color:var(--muted); margin:0}
+/* ===== Stats ===== */
+.stat-card{text-align:center; padding:24px; background:var(--bg); 
+  border:1px solid var(--border); border-radius:var(--radius);}
+.stat-number{font-size:2rem; font-weight:400; color:var(--ink); margin-bottom:8px}
+.stat-label{font-size:0.9rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em}
+/* ===== Design Process Grid (5:3 ratio) ===== */
+.design-item img{width: 100%;
+  aspect-ratio: 5 / 3; /* wider */
+  object-fit: cover;
+  display: block;}
+/* ===== Last 3 photos (Performance & Testing) at 3:4 ===== */
+/* This targets only the gallery images in Testing & Performance and Performance Results */
+.gallery img{width: 100%;
+  aspect-ratio: 3 / 4; /* taller portrait */
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  transition: transform .3s ease, box-shadow .3s ease;}
+.gallery img:hover{transform:translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);}
+@media (max-width:900px){.gallery{ grid-template-columns: repeat(2, 1fr);}
+}
+@media (max-width:600px){.gallery{ grid-template-columns: 1fr;}
+}
+
+/* Single row, smaller cards, vertical 2:4 ratio */
+/* Single row, smaller cards, vertical 2:4 ratio */
+.design-grid{display: flex;
+  gap: 20px;
+  justify-content: center;  /* centers them on the page */
+  flex-wrap: nowrap;        /* keep in one line */}
+.design-item{flex: 0 0 auto;             /* no shrinking */
+  width: 250px;               /* smaller size */
+  aspect-ratio: 2 / 4;        /* tall vertical look */
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr auto; /* image + caption */}
+.design-item img{width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;}
+.design-caption{padding: 12px;}
+.design-caption h3{font-size:1rem; margin-bottom:6px; color:var(--ink);}
+.design-caption p{font-size:0.9rem; color:var(--muted); margin:0;}
+/* ===== Performance Metrics ===== */
+.metrics-highlight{background:var(--elev); border:1px solid var(--border);
+  padding:32px; border-radius:var(--radius); margin:40px 0;
+  text-align:center;}
+.metrics-highlight h3{color:var(--ink); margin-bottom:20px; font-size:1.25rem;}
+.metrics-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+/* ===== Text Block ===== */
+.text-block{margin-left: auto;
+  margin-right: auto;
+  text-align: center;}
+/* ===== Dark Section ===== */
+.dark-section{background:var(--ink); color:#fff; padding:var(--section-pad) 0}
+.dark-section .section-title{color:#e8e8e8}
+.dark-section .card{background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14);}
+.dark-section .card h3{color:#ffffff}
+.dark-section .card p{color:#d8d8d8}
+/* ===== Motion ===== */
+.fade-in{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.fade-in.visible{opacity:1; transform:translateY(0)}
+.slide-left{opacity:0; transform:translateX(-28px); transition:opacity .6s ease, transform .6s ease}
+.slide-left.visible{opacity:1; transform:translateX(0)}
+.slide-right{opacity:0; transform:translateX(28px); transition:opacity .6s ease, transform .6s ease}
+.slide-right.visible{opacity:1; transform:translateX(0)}
+@media (max-width:900px){.two-col{grid-template-columns:1fr; gap:24px}
+.design-grid{grid-template-columns:1fr}
+.metrics-grid{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){.fade-in,.slide-left,.slide-right{transition:none; transform:none; opacity:1}
+html{scroll-behavior:auto}
+</style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Sara Crogh</a></div>
+    <nav>
+      <a href="work.html">Work</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="project-tag">Miniature Design · Optimization Engineering</span>
+      <h1>3D Printed Wind Mill</h1>
+      <p class="hero-subtitle">
+        Comprehensive design, analysis, manufacturing, and testing of a miniature 3D-printed windmill 
+        optimized for maximum power generation, structural stiffness, and minimal weight—achieving 
+        top 5 performance among 140 UC Berkeley students.
+      </p>
+    </div>
+  </section>
+
+  <!-- Objectives & Approach -->
+  <section class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="slide-left">
+          <h2>Design Objectives & Methodology</h2>
+          <p>
+            This freshman-year engineering project challenged students to design and manufacture 
+            a miniature windmill with multiple competing objectives that required careful optimization 
+            and engineering trade-offs.
+          </p>
+          <div class="grid grid-2" style="margin-top:24px;">
+            <div class="card">
+              <h3>Power Maximization</h3>
+              <p>Optimize blade geometry and configuration for maximum energy conversion efficiency</p>
+            </div>
+            <div class="card">
+              <h3>Structural Optimization</h3>
+              <p>Maximize stiffness while minimizing weight through topology optimization</p>
+            </div>
+            <div class="card">
+              <h3>Creative Design</h3>
+              <p>Innovative approaches to traditional windmill architecture and functionality</p>
+            </div>
+            <div class="card">
+              <h3>Manufacturing</h3>
+              <p>Design for 3D printing constraints and assembly requirements</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-right">
+          <img
+            src="/images/windmill/image1.avif"
+            alt="3D printed windmill assembly"
+            class="image", style="width:18em; height:auto", border-radius="30px"
+            loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design & Engineering Process -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Design & Engineering Process</h2>
+      <div class="design-grid">
+        <div class="design-item fade-in">
+          <img src="/images/windmill/image2.avif" alt="SOLIDWORKS CAD model" loading="lazy" decoding="async">
+          <div class="design-caption">
+            <h3>CAD Modeling</h3>
+            <p>Complete SOLIDWORKS assembly including base, blades, and motor attachment</p>
+          </div>
+        </div>
+        <div class="design-item fade-in">
+          <img src="/images/windmill/image3.avif" alt="Finite Element Analysis" loading="lazy" decoding="async">
+          <div class="design-caption">
+            <h3>FEA Analysis</h3>
+            <p>Structural analysis to optimize stiffness-to-weight ratio and ensure integrity</p>
+          </div>
+        </div>
+        <div class="design-item fade-in">
+          <img src="/images/windmill/image4.avif" alt="Three-blade configuration" loading="lazy" decoding="async">
+          <div class="design-caption">
+            <h3>Blade Optimization</h3>
+            <p>Three-blade configuration for enhanced flow speeds and rotational force</p>
+          </div>
+        </div>
+        <div class="design-item fade-in">
+          <img src="/images/windmill/image8.avif" alt="Topology optimization" loading="lazy" decoding="async">
+          <div class="design-caption">
+            <h3>Topology Optimization</h3>
+            <p>Cylinder-based structure optimized to reduce weight while maintaining stiffness</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testing & Measurement -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Testing & Performance Analysis</h2>
+      <div class="two-col">
+        <div class="slide-left">
+          <h3>Measurement Methodology</h3>
+          <p>
+            Connected a precision power meter to the motor for comprehensive electrical measurements, 
+            capturing power output, current draw, and voltage generation under various loading conditions.
+          </p>
+          <p>
+            <strong>Optimization Process:</strong> Conducted methodical search for optimal loading conditions 
+            on the potentiometer, manipulating circuit resistance to achieve peak performance. Extended 
+            evaluation to structural testing through top plate loading and deflection measurements.
+          </p>
+          <h3>Circuit Integration</h3>
+          <p>
+            Designed and implemented electrical measurement system with variable loading to characterize 
+            power curve and identify maximum power point for the wind turbine generator.
+          </p>
+        </div>
+        <div class="slide-right">
+          <!-- portrait gallery on the right -->
+          <div class="gallery" >
+            <img src="/images/windmill/image5.avif" alt="Testing setup with power meter"  style="width:100%; aspect-ratio:5/3;box-shadow:none;">
+            <img src="/images/windmill/image6.avif" alt="Electrical measurement system"  style="width:100%; aspect-ratio:5/3;box-shadow:none;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance Results -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Performance Results</h2>
+      
+      <div class="metrics-highlight">
+        <div class="metrics-grid">
+          <div class="stat-card">
+            <div class="stat-number">680.2</div>
+            <div class="stat-label">Milliwatts Generated</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">12.8</div>
+            <div class="stat-label">Stiffness (N/mm)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">14.2%</div>
+            <div class="stat-label">Efficiency Rate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Put text on the left and the last photo to the right -->
+      <div class="two-col">
+        <div class="text-block fade-in">
+          <p>
+            <strong>Competitive Performance:</strong> Achieved efficiency rate of 14.2%, notably competitive 
+            with conventional full-scale windmills that typically operate at 30% efficiency. This represents 
+            excellent performance for a miniaturized system with inherent scaling challenges.
+          </p>
+          <p>
+            <strong>Academic Recognition:</strong> Performance metrics positioned this project in the top 5 
+            among a cohort of 50 UC Berkeley students, following rigorous testing that assessed power output, 
+            weight considerations, and structural load-to-deflection ratio.
+          </p>
+        </div>
+        <div class="fade-in" >
+          <img src="/images/windmill/image7.avif" alt="Performance testing results" loading="lazy" decoding="async" style="width:100%; aspect-ratio:5/3; object-fit:cover; box-shadow: 0 4px 12px rgba(0,0,0,.06);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Learnings -->
+  <section class="dark-section">
+    <div class="container">
+      <h2 class="section-title fade-in">Technical Insights & Engineering Learnings</h2>
+      <div class="grid grid-2">
+        <div class="card slide-left">
+          <h3>Multi-Objective Optimization</h3>
+          <p>Balanced competing requirements of power generation, structural integrity, and weight constraints through systematic design iteration and FEA validation.</p>
+        </div>
+        <div class="card slide-right">
+          <h3>Topology Optimization</h3>
+          <p>Applied advanced CAD techniques to create lightweight structures with optimal stiffness-to-weight ratios, crucial for miniaturized mechanical systems.</p>
+        </div>
+        <div class="card slide-left">
+          <h3>Aerodynamic Design</h3>
+          <p>Three-blade configuration optimization demonstrated the importance of blade geometry and spacing for maximizing rotational force and flow capture efficiency.</p>
+        </div>
+        <div class="card slide-right">
+          <h3>Electromechanical Integration</h3>
+          <p>Power measurement system design and circuit optimization provided hands-on experience with generator loading and maximum power point tracking.</p>
+        </div>
+        <div class="card slide-left">
+          <h3>Manufacturing Constraints</h3>
+          <p>3D printing limitations influenced design decisions, teaching valuable lessons about design for additive manufacturing and material properties.</p>
+        </div>
+        <div class="card slide-right">
+          <h3>Testing Methodology</h3>
+          <p>Comprehensive testing protocol combining electrical measurements with structural analysis demonstrated importance of holistic performance evaluation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Impact -->
+  <section class="section" style="text-align:center;">
+    <div class="container" style="text-align:center;">
+      <h2 class="section-title fade-in">Project Impact & Future Applications</h2>
+      <div class="text-block fade-in" style="text-align:center;">
+        <p>
+          This project served as a foundational experience in mechanical design optimization, introducing 
+          critical concepts that have influenced subsequent engineering work. The challenge of balancing 
+          multiple competing objectives—power, stiffness, weight, and manufacturability—provided practical 
+          experience in real-world engineering trade-offs.
+        </p>
+        
+        <p>
+          <strong>Design Methodology:</strong> The systematic approach combining CAD modeling, FEA analysis, 
+          and experimental validation established a design methodology that has proven valuable in subsequent 
+          projects. The integration of simulation with physical testing demonstrated the importance of 
+          validation in the engineering process.
+        </p>
+        
+        <p>
+          <strong>Optimization Thinking:</strong> Working within the constraints of miniaturization while 
+          maximizing performance taught valuable lessons about scaling effects and the importance of 
+          understanding fundamental physical limitations in engineering design.
+        </p>
+        
+        <p>
+          <strong>Ranking Achievement:</strong> Placing in the top 5 among 140 students validated both the 
+          technical approach and the importance of rigorous testing methodology. This recognition highlighted 
+          the value of thorough analysis and systematic optimization in competitive engineering environments.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // reveal on scroll
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    },{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
+    document.querySelectorAll('.fade-in,.slide-left,.slide-right').forEach(el=>observer.observe(el));
+
+    // header elevation
+    const header=document.querySelector('header');
+    addEventListener('scroll',()=>{
+      const y=window.pageYOffset||document.documentElement.scrollTop;
+      header.style.boxShadow = y>96?'0 2px 18px rgba(17,17,17,0.08)':'none';
+      hdr.style.background = y > 96? 'rgba(255,255,255,0.90)': 'rgba(255,255,255,0.75)';
+    });
+  </script>
+</body>
+</html>

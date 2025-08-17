@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Automated Powder Dispenser - Sara Crogh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet">
+  <style>
+:root{--bg:#ffffff;
+  --ink:#111111;
+  --muted:#606060;
+  --accent:#111111;
+  --border: rgba(17,17,17,0.10);
+  --elev: rgba(17,17,17,0.04);
+  --radius: 10px;
+  --container:1120px;
+  --section-pad: 80px;
+  --space-md:16px;
+
+  --img-shadow: 0 10px 24px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --img-shadow-hover: 0 14px 30px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size:1rem; line-height:1.6; font-weight:200; letter-spacing:-0.005em;
+  padding-top:72px; -webkit-font-smoothing:antialiased;}
+h1,h2,h3{margin:0; font-weight:400; letter-spacing:-0.02em; color:var(--ink)}
+h1{font-size:clamp(2.25rem,6vw,3rem); line-height:1.1; margin-bottom:24px}
+h2{font-size:1.5rem; margin-bottom:40px}
+h3{font-size:1.125rem; margin-bottom:12px}
+p{margin:0 0 var(--space-md); color:var(--muted); font-size:1rem}
+.container{max-width:var(--container); margin:0 auto; padding:0 20px}
+.hero{padding:var(--section-pad) 0; text-align:center}
+.project-tag{display:inline-block; margin-bottom:8px; font-size:0.85rem; color:var(--muted);
+  background:transparent; border:1px solid var(--border);
+  padding:6px 12px; border-radius:999px; font-weight:200}
+.hero-subtitle{font-size:1rem; color:var(--muted); margin-top:20px; 
+  max-width:68ch; margin-left:auto; margin-right:auto;}
+.section{padding:var(--section-pad) 0}
+.section-title{text-align:center; margin-bottom:40px}
+.two-col{display:grid; grid-template-columns:2fr 1fr; gap:48px; align-items:start}
+.grid{display:grid; gap:24px; margin-top:40px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:1fr 1fr 1fr}
+.grid-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.card{background:var(--bg); border:1px solid var(--border); 
+  padding:24px; border-radius:var(--radius);}
+.card h3{color:var(--ink); margin-bottom:8px}
+.card p{color:var(--muted); margin:0}
+.stat-card{text-align:center; padding:24px; background:var(--bg); 
+  ; border-radius:var(--radius);}
+.stat-number{font-size:2rem; font-weight:400; color:var(--ink); margin-bottom:8px}
+.stat-label{font-size:0.9rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em}
+.gallery{display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  margin-top:20px;}
+.gallery img{width:100%; aspect-ratio: 1 / 1; object-fit: cover; display:block; 
+  border-radius:var(--radius);;}
+@media (max-width:900px){.gallery{ grid-template-columns: repeat(2, 1fr);}
+}
+@media (max-width:600px){.gallery{ grid-template-columns: 1fr;}
+}
+
+.full-width-image{margin:40px 0}
+.image{display:block; width:100%; height:auto; border-radius:var(--radius)}
+.timeline{position:relative; margin-top:var(--space-md)}
+.timeline::before{content:""; position:absolute; left:24px; top:0; bottom:0; width:1px; background:var(--border)}
+.t-item{display:flex; align-items:flex-start; gap:16px; margin-bottom:24px}
+.t-num{flex-shrink:0; width:46px; height:46px; border-radius:50%; background:var(--ink);
+  color:#fff; font-weight:400; font-size:1.125rem; display:flex; align-items:center; justify-content:center}
+.t-card{flex:1; background:var(--bg); border:1px solid var(--border);
+  padding:20px; border-radius:var(--radius); font-size:1rem}
+.t-card h3{margin-bottom:8px; color:var(--ink)}
+.t-card p{margin:0; color:var(--muted)}
+.code-block{background:#2c3e50; color:#ecf0f1; padding:24px; border-radius:var(--radius); 
+  font-family:'Monaco','Menlo',monospace; font-size:0.9em; overflow-x:auto; 
+  margin:24px 0; position:relative}
+.code-block::before{content:'Arduino C++'; position:absolute; top:8px; right:16px; 
+  font-size:0.8em; color:#95a5a6}
+.dark-section{background:var(--ink); color:#fff; padding:var(--section-pad) 0}
+.dark-section .section-title{color:#e8e8e8}
+.dark-section .card{background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14);}
+.dark-section .card h3{color:#ffffff}
+.dark-section .card p{color:#d8d8d8}
+.cta{text-align:center; padding:var(--section-pad) 0; border-top:1px solid var(--border)}
+.btn{display:inline-block; background:var(--accent); color:#fff; 
+  padding:12px 22px; border-radius:999px; border:1px solid var(--accent); 
+  font-weight:400; text-decoration:none;}
+.btn:hover{opacity:.9}
+.text-block{max-width:75ch; margin-left:auto; margin-right:auto}
+.fade-in{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.fade-in.visible{opacity:1; transform:translateY(0)}
+.slide-left{opacity:0; transform:translateX(-28px); transition:opacity .6s ease, transform .6s ease}
+.slide-left.visible{opacity:1; transform:translateX(0)}
+.slide-right{opacity:0; transform:translateX(28px); transition:opacity .6s ease, transform .6s ease}
+.slide-right.visible{opacity:1; transform:translateX(0)}
+@media (prefers-reduced-motion:reduce){.fade-in,.slide-left,.slide-right{transition:none; transform:none; opacity:1}
+html{scroll-behavior:auto}
+}
+
+
+@media (max-width:768px){.two-col{grid-template-columns:1fr; gap:32px}
+.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+.section{padding:60px 0}
+</style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo"><a href="index.html">Sara Crogh</a></div>
+    <nav>
+      <a href="work.html">Work</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="project-tag">Product Development · Mechatronics · Systems Integration</span>
+      <h1>Automated Powder Dispenser</h1>
+      <p class="hero-subtitle">
+        A precision dispenser that automates powdered supplements with ±1 g accuracy. I led the
+        end-to-end product development—from user research and PRD to architecture, controls, and
+        validation—integrating mechanical design, embedded software, and electronics.
+      </p>
+    </div>
+  </section>
+
+  <!-- Product Vision & Strategy -->
+  <section class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="slide-left">
+          <h2>Product Vision & Execution Strategy</h2>
+          <p>
+            <strong>Goal:</strong> Define a precise, automated dispenser that eliminates the mess and inconsistency of manual scooping while maintaining simplicity and reliability for fitness enthusiasts and health-conscious users.
+          </p>
+          <p>
+            <strong>Outcome:</strong> A functional MVP that won "Best Entrepreneurship Award" for execution and market validation, delivering ±1g accuracy with 98% success rate and 3-second average cycle time.
+          </p>
+          <div class="card">
+            <p>
+               <strong>My Role: </strong> Product lead and systems engineer across the full development cycle. Performing user research and PRD development.            Concept selection using weighted decision matrix. Mechanical design: transmission, bearings, and alignment systems.
+Embedded software: state machine, PWM control, interrupt handling. Creating timelines and iterative improvements based on performance.
+            </ul>
+          </div>
+        </div>
+        <div class="slide-right">
+      
+          <img
+            src="/images/powder/Adobe%20Express%20-%20file%20(7).png"
+            alt="Best Entrepreneurship Award badge" width="258px"
+            >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Requirements & Features -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Requirements & Scoped Features</h2>
+      <div class="grid grid-2">
+        <div class="card fade-in">
+          <h3>Precision & Reliability</h3>
+          <p>±1g accuracy target with real-time feedback control via load cell and HX711 amplifier. Robust state machine prevents operational errors and ensures consistent performance.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>User Experience Focus</h3>
+          <p>Simple 3-step process: select weight, confirm tare, dispense. LCD guidance reduces setup errors while debounced interrupts prevent false triggers during operation.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Mechanical Integration</h3>
+          <p>Helical auger with 4:1 transmission for smooth flow control. Modular hopper design enables easy cleaning and refilling while maintaining food safety standards.</p>
+        </div>
+        <div class="card fade-in">
+          <h3>Scalable Architecture</h3>
+          <p>Single-powder MVP to de-risk flow variability and contamination. Modular design supports future multi-compartment expansion with anti-cross-contamination features.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- System Performance Stats -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">System Performance</h2>
+      <div class="grid grid-4">
+        <div class="stat-card fade-in">
+          <div class="stat-number">±1 g</div>
+          <div class="stat-label">Accuracy</div>
+        </div>
+        <div class="stat-card fade-in">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Success Rate</div>
+        </div>
+        <div class="stat-card fade-in">
+          <div class="stat-number">3 s</div>
+          <div class="stat-label">Avg Cycle</div>
+        </div>
+        <div class="stat-card fade-in">
+          <div class="stat-number">250 g/min</div>
+          <div class="stat-label">Flow Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Development Methodology -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Execution Plan & Milestones</h2>
+      <div class="timeline">
+        <div class="t-item fade-in">
+          <div class="t-num">1</div>
+          <div class="t-card">
+            <h3>User Insights & PRD</h3>
+            <p>Interviews surfaced accuracy and simplicity as must-haves. PRD fixed an MVP scope: single powder, ±1 g accuracy, hands-off operation.</p>
+          </div>
+        </div>
+        <div class="t-item fade-in">
+          <div class="t-num">2</div>
+          <div class="t-card">
+            <h3>Concept Selection & Validation</h3>
+            <p>Weighted matrix favored auger + feedback. Early breadboards validated signal quality from HX711 and UI latency with debounced interrupts.</p>
+          </div>
+        </div>
+        <div class="t-item fade-in">
+          <div class="t-num">3</div>
+          <div class="t-card">
+            <h3>Mechanical Design & CAD</h3>
+            <p>4:1 gearing improved effective resolution and torque margin. Bearings/collars constrained shafts; coupler handled minor misalignment.</p>
+          </div>
+        </div>
+        <div class="t-item fade-in">
+          <div class="t-num">4</div>
+          <div class="t-card">
+            <h3>Control Software & States</h3>
+            <p>Finite state machine with timeouts and proportional slowdown near target. LCD prompts guided setup, reducing misuse.</p>
+          </div>
+        </div>
+        <div class="t-item fade-in">
+          <div class="t-num">5</div>
+          <div class="t-card">
+            <h3>Testing & Iteration</h3>
+            <p>Addressed gear wear, improved shaft support, added motor timeout when weight stalls; refined funnel and cup recess for repeatability.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Architecture -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">System Components</h2>
+      <div class="grid grid-3">
+        <div class="card fade-in"><h3>ESP32 Controller</h3><p>Main processing unit with PWM motor control and interrupt handling</p></div>
+        <div class="card fade-in"><h3>HX711 Load Cell Amp</h3><p>High-precision weight measurement with real-time feedback</p></div>
+        <div class="card fade-in"><h3>Helical Auger System</h3><p>4:1 geared mechanism for controlled powder flow</p></div>
+        <div class="card fade-in"><h3>LCD Display</h3><p>User guidance and weight selection interface</p></div>
+        <div class="card fade-in"><h3>State Machine Control</h3><p>Robust software architecture with safety interlocks</p></div>
+        <div class="card fade-in"><h3>Modular Housing</h3><p>Food-safe components with easy cleaning access</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Architecture -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Control Software Architecture</h2>
+      <div class="code-block fade-in">
+// State machine core (ESP32)
+#define SETTING 0
+#define SETWAIT 1
+#define CONFIRMGO 2
+#define REACHED 3
+
+volatile bool buttonIsPressed = false;
+int state = SETTING;
+int desiredWeight = 0;     // from POT
+long currentWeight = 0;    // from HX711
+int threshold = 0;
+
+void loop(){
+  switch(state){
+    case SETTING:
+      checkPot();                   // map POT → grams
+      if(CheckForButtonPress()) state = SETWAIT;
+      break;
+    case SETWAIT:
+      if(CheckForButtonPress()){
+        scale.tare();               // zero scale
+        state = CONFIRMGO;
+      }
+      break;
+    case CONFIRMGO:
+      currentWeight = scale.get_units();
+      runMotorUntilWeight(153, currentWeight, threshold); // PWM control
+      state = REACHED;
+      break;
+    case REACHED:
+      stopMotor(); delay(7000);     // show result, then reset
+      state = SETTING;
+      break;
+  }
+}
+</div>
+<div class="full-width-image fade-in" style="width: 700px; margin-left: auto; margin-right: auto;">
+  <img class="image" alt="State Machine Diagram" src="/images/powder/Screenshot 2025-08-14 at 23.04.12.png">
+</div>
+</div>
+</section>
+
+  <!-- Build Gallery -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Build Photos & Development</h2>
+      <div class="gallery">
+        <img src="/images/powder/Adobe Express - file (7).png" alt="Award" class="fade-in" loading="lazy" decoding="async"/>
+        <img src="/images/powder/image2.png" alt="Storyboard Planning" class="fade-in" loading="lazy" decoding="async"/>
+        <img src="/images/powder/image3.png" alt="Circuit & Wiring" class="fade-in" loading="lazy" decoding="async"/>
+        <img src="/images/powder/Adobe Express - file (8).png" alt="Final Build" class="fade-in" loading="lazy" decoding="async"/>
+        <img src="/images/powder/image5.png" alt="CAD Close-up" class="fade-in" loading="lazy" decoding="async"/>
+        <img src="/images/powder/image6.png" alt="CAD Side View" class="fade-in" loading="lazy" decoding="async"/>
+        <img src="/images/powder/image7.png" alt="CAD Front View" class="fade-in" loading="lazy" decoding="async"/>
+        <img src="/images/powder/image8.png" alt="CAD Section" class="fade-in" loading="lazy" decoding="async"/>
+        <img src="/images/powder/image10.jpg" alt="Physical Prototype" class="fade-in" loading="lazy" decoding="async"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Challenges & Problem Solving -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Technical Challenges & Solutions</h2>
+      <div class="text-block fade-in">
+        <p><strong>Precision Control:</strong> Achieving ±1g accuracy required implementing proportional PWM control near the target weight to prevent overshoot. The 4:1 gear reduction provided both the necessary torque and finer control resolution.</p>
+        <p><strong>Mechanical Reliability:</strong> Initial gear wear issues were addressed through material selection and improved shaft support with bearings and collars. Added flexible coupling to handle minor misalignments without binding.</p>
+        <p><strong>User Experience:</strong> Debounced interrupt handling prevented false button triggers, while the structured state machine with LCD prompts guided users through the proper tare and dispense sequence, significantly reducing operational errors.</p>
+        <p><strong>System Integration:</strong> Careful wiring layout isolated sensitive analog measurements from motor noise. Real-time tare functionality and drift compensation maintained accuracy across extended use sessions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Management Learnings -->
+  <section class="dark-section">
+    <div class="container">
+      <h2 class="section-title fade-in">Product Management Takeaways</h2>
+      <div class="grid grid-2">
+        <div class="card slide-left">
+          <h3>User-Driven Requirements</h3>
+          <p>Direct user interviews revealed that accuracy and simplicity trumped feature complexity, leading to a focused MVP scope that delivered core value effectively.</p>
+        </div>
+        <div class="card slide-right">
+          <h3>Systematic Decision Making</h3>
+          <p>Weighted decision matrix for concept selection provided clear rationale for technical choices and enabled stakeholder alignment on architecture decisions.</p>
+        </div>
+        <div class="card slide-left">
+          <h3>Risk-Based Development</h3>
+          <p>Single-powder MVP de-risked contamination and calibration challenges while establishing a scalable foundation for multi-compartment expansion.</p>
+        </div>
+        <div class="card slide-right">
+          <h3>Iterative Validation</h3>
+          <p>Continuous testing and feedback integration improved mechanical reliability and user experience, resulting in 98% success rate in final validation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <div class="container">
+      <a href="Copy of Final Report.docx" class="btn">View Technical Documentation</a>
+    </div>
+  </section>
+
+  <script>
+    // reveal on scroll
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    },{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
+    document.querySelectorAll('.fade-in,.slide-left,.slide-right').forEach(el=>observer.observe(el));
+
+    // header elevation
+    const header=document.querySelector('header');
+    addEventListener('scroll',()=>{
+      const y=window.pageYOffset||document.documentElement.scrollTop;
+      header.style.boxShadow = y>96?'0 2px 18px rgba(17,17,17,0.08)':'none';
+      header.style.background = y > 96? 'rgba(255,255,255,0.90)': 'rgba(255,255,255,0.75)'
+    });
+
+    // stagger timeline
+    const items=document.querySelectorAll('.t-item');
+    const tObs=new IntersectionObserver((ents)=>{
+      ents.forEach((entry,idx)=>{
+        if(entry.isIntersecting) setTimeout(()=>entry.target.classList.add('visible'), idx*120);
+      });
+    },{threshold:0.5});
+    items.forEach(i=>tObs.observe(i));
+  </script>
+</body>
+</html>
